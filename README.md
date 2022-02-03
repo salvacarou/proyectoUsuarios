@@ -1,14 +1,14 @@
-**Proyecto de usuarios**
+***Proyecto de usuarios***
 
 -----------------------------------
 
 Acciones:
 
-- Lista de usuarios en "/":
+**1) Lista de usuarios en "/":**
  - Todos los usuarios
  - Se indica el usuario conectado
 
-- Registrarse con validaciones, en "/register": 
+**2) Registrarse con validaciones, en "/register":** 
  - Nombre completo
  - Username
  - Email ( unico )
@@ -16,7 +16,7 @@ Acciones:
  - Imagen
  - Contraseña encriptada ( debe ser igual a "Confirmar contraseña" )
 
-- Login con validaciones, en "/login":
+**3) Login con validaciones, en "/login":**
  - Pide email y contraseña
 
 - Perfil:
