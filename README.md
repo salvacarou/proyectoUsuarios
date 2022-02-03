@@ -19,6 +19,6 @@ Acciones:
 **3) Login con validaciones, en "/login":**
  - Pide email y contraseña
 
-- Perfil:
+**4) Perfil:**
  - Perfil loggeado detallado
  - Posibilidad de editar
