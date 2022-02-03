@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <h2>login</h2>
+    <a href="/">All users</a>
+    <br>
+    <a href="/register">Register</a>
+    <br><br>
+
+    <form action="/login" method="POST">
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" id="email">
+        <br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" id="password">
+        <br><br>
+        <label> Recordar usuario </label>       
+        <input  type="checkbox" name="remember_user">
+        <br><br>
+        <button type="submit">Aceptar</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilos.css">
+    <title>Lista de usuarios</title>
+</head>
+<body>
+    <div class="borde">
+      <h1>Usuarios</h1>
+    <a href="/login">Login</a>
+    <br>
+    <a href="/register">Register</a>
+    <br><br>  
+    </div>
+    <br>
+    
+    <!-- <a href="/profile">Profile</a> -->
+
+    <% for (let user of allUsers) { %>
+
+        <div class="borde">
+            <br>
+        <h4>ID: <%= user.id %> </h4>
+
+        <img src="./../../public//img/<%= user.image %> " alt="imagen" width="100%" /> 
+        <!-- <img src="./../../public/img/image-1643831829278.jpg" alt="imagen" width="100%" /> como pingos se hacia esto --> 
+        <h2>Nombre de usuario: <%= user.username %> </h2>
+        <h3>Nombre completo: <%= user.fullName %> </h3>
+        <h3>Email: <%= user.email %> </h3>
+        <h4>fecha de nacimiento: <%= user.birthdate %> </h4>
+        <h5>Contraseña: <%= user.password %> </h5> 
+        </div>
+        
+        <br><br>
+                
+    <% } %> 
+
+</body>
+</html>
