@@ -4,15 +4,21 @@ const db = require('../database/models');
 const validations = [
 body('email')
 .trim()
-.isAlphanumeric()
-.withMessage('Solo se permite contenido alfanumerico')
-.bail()
 .notEmpty()
 .withMessage('Debe ingresar algun e-mail')
 .bail()
 .isEmail()
 .withMessage('La dirección de e-mail ingresada no es válida')
-.bail(),
+.bail()
+.custom((value, { req }) => {
+    return db.Users.findOne({ where: { email: req.body.email, },
+    }).then((user) => {
+      if (!user) {
+        return Promise.reject('Este correo no esta asociado a ninguna cuenta');
+        // return true
+      }
+    });
+  }),
 body('password')
 .trim()
 .notEmpty()

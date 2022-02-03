@@ -1,48 +1,80 @@
 const { Users } = require('../database/models')
 const service = require("../services/userService")
 const imageDefault =  "sin-foto-de-perfil.png";
-const { validationResult } = require("express-validator")
+const { validationResult } = require("express-validator");
+const bcryptjs = require('bcryptjs');
+const services = require('../services/userService');
 
 module.exports = {
     list: async (req, res) => {
         const allUsers = await Users.findAll({where: { deleted : false }})
-        res.render("home", { allUsers } )
+        res.render("home", { allUsers, imageDefault } )
     },
     login: async (req, res) => {
         res.render("login")
     },
     processLogin: async (req, res) => {
+        const userSearch = await service.findByEmail(req.body.email)
         const resultValidation = validationResult(req)
-        res.send(resultValidation)
-
+        if (resultValidation.errors.length == 0) {
+            const userSearch = await service.findByEmail(req.body.email)
+            if (userSearch) {
+                const result = await services.comparePassword(req.body.password, userSearch)
+                if (result == true) {
+                    req.session.userLogged = userSearch
+                    res.redirect('/profile')
+                } if (result == false) {
+                    res.render('login', {
+                        errors: {
+                            oldData: req.body,
+                            email: {msg: 'Las credenciales son invalidas'},
+                            password: {msg: 'Las credenciales son invalidas'},
+                            
+                        }
+                    })
+                }
+            } 
+        } if (resultValidation ) {
+            res.render("login", {
+                errors: resultValidation.mapped(),
+                oldData: req.body
+            })
+        } 
     },
     register: async (req, res) => {
         res.render("register")
     },
     processRegister: async (req, res) => {
         const resultValidation = validationResult(req)
+        console.log(req.file)
 
     if (resultValidation.errors.length == 0) {
             await Users.create({
             id : await service.newId(),
-            fullName: req.body.fullName,
+            fullName: req.body.name + " " + req.body.lastname,
             username: req.body.username,
             email: req.body.email,
             birthdate: req.body.birthdate,
             image: req.file ? req.file.filename : imageDefault,
             password: req.body.password,
+            password: bcryptjs.hashSync(req.body.password, 10) ,
             deleted: 0
         }) 
         res.redirect('/login') 
     }   if (resultValidation) {
             res.render("register", {
                 errors: resultValidation.mapped(),
-                oldData: req.body,
+                oldData: req.body
             })
         } else {
             res.send('problemas')
         }
         
+    },
+    profile: async (req, res) => {
+        res.render('profile', {
+            user: req.session.userLogged
+        })
     },
     edit: async (req, res) => {
         res.render("edit")

@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(session({
-    secret: "Mensaje Secreto",
+    secret: 'Mensaje Secreto',
     resave: false,
 	saveUninitialized: false,
 }));
