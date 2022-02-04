@@ -106,8 +106,10 @@ module.exports = {
                     id: currentUser.id
                 }
             })
+            if (req.cookies.userEmail) {
             res.clearCookie('userEmail');
             res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+            }
             res.redirect('/profile')
         }
         if (resultValidation) {
