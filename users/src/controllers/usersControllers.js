@@ -7,10 +7,13 @@ const services = require('../services/userService');
 
 module.exports = {
     list: async (req, res) => {
-        const allUsers = await Users.findAll({where: { deleted : false }})
-        res.render("home", { allUsers, imageDefault } )
+        // const allUsers = await Users.findAll({where: { deleted : false }, order: ['id', 'ASC']})
+        const allUsers = await Users.findAll({where: { deleted : false }, order: [['id', 'DESC']]})
+        const emailLog = (req.session.userLogged ? req.session.userLogged.email : null)
+        res.render("home", { allUsers, emailLog  } )
     },
     login: async (req, res) => {
+
         res.render("login")
     },
     processLogin: async (req, res) => {
@@ -22,6 +25,9 @@ module.exports = {
                 const result = await services.comparePassword(req.body.password, userSearch)
                 if (result == true) {
                     req.session.userLogged = userSearch
+                    if (req.body.remember_user) {
+                        res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+                    }
                     res.redirect('/profile')
                 } if (result == false) {
                     res.render('login', {
@@ -68,16 +74,51 @@ module.exports = {
             })
         } else {
             res.send('problemas')
-        }
-        
+        }     
     },
     profile: async (req, res) => {
+        console.log(req.session.userLogged)
         res.render('profile', {
             user: req.session.userLogged
         })
     },
+    logout: async (req, res) => {
+        res.clearCookie('userEmail')
+        req.session.destroy();
+        return res.redirect('/')
+    },
     edit: async (req, res) => {
         res.render("edit")
+    },
+    update: async (req, res) => {
+        const currentUser = await Users.findOne({where: { email: req.session.userLogged.email }})
+        console.log(currentUser)
+        const resultValidation = validationResult(req)
+        if (resultValidation.errors.length == 0) {
+            const newU = await Users.update({
+                image : req.file ? req.file.filename : currentUser.image,
+                fullName : req.body.fullName,
+                username : req.body.username,
+                birthdate : req.body.birthdate,
+                email : req.body.email
+            }, {
+                where: {
+                    id: currentUser.id
+                }
+            })
+            res.clearCookie('userEmail');
+            res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+            res.redirect('/profile')
+        }
+        if (resultValidation) {
+            res.render('edit', {
+                errors: resultValidation.mapped(),
+                oldData: req.body
+            })
+        }
+
+        res.redirect('/profile')
+
     }
 }
 

@@ -9,19 +9,41 @@
 </head>
 <body>
     <div class="borde">
-      <h1>Usuarios</h1>
+        <% if (locals.isLogged) { %> 
+            <h3>hola! </h3>
+            <img src="/../img/<%= locals.userInLog.image %>" alt="imagen" width="5%" /> <br> <br>
+            <a href="/profile">Perfil</a>
+            <br><br>
+    </div>
+              
+   
+      <h1>Todos los Usuarios:</h1>
+      
+      <% } else { %> 
+        <h1>Usuarios</h1>
     <a href="/login">Login</a>
     <br>
     <a href="/register">Register</a>
-    <br><br>  
+    <br><br> 
+    <% } %> 
+    
     </div>
     <br>
-    
-    <!-- <a href="/profile">Profile</a> -->
+
 
     <% for (let user of allUsers) { %>
 
-        <div class="borde">
+            <% if (locals.isLogged == true) { %> 
+                <% if (emailLog == user.email) { %>
+                    <div class="bordeUser">
+                    <h3>Tu cuenta:</h3>
+                    <% } else { %> 
+                        <div class="borde">
+                        <% } %>  
+            <% } else { %> 
+                <div class="borde">
+            <% } %> 
+
             <br>
         <img src="/../img/<%= user.image %>" alt="imagen" width="10%" /> 
         <h2>Nombre de usuario: <%= user.username %> </h2>

@@ -3,6 +3,8 @@ const session = require('express-session');
 const path = require("path");
 const methodOverride = require("method-override");
 const cookieParser = require('cookie-parser');
+const userLoggedMid = require('./middlewares/userLMiddle');
+const cookies = require('cookie-parser');
 
 const app = express();
 app.use(session({
@@ -11,6 +13,8 @@ app.use(session({
 	saveUninitialized: false,
 }));
 
+app.use(cookies())
+app.use(userLoggedMid);
 app.use(methodOverride("_method")); // Para capturar la info de los forms
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())

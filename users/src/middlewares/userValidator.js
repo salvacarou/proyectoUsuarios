@@ -9,8 +9,6 @@ const validations = [
     //     .bail()
     //     .isLength({min:4, max:20})
     //     .withMessage("Debe tener de 4 a 20 caracteres")
-    //     .isAlphanumeric()
-    //     .withMessage('Solo se permite contenido alfanumerico')
     //     .bail(),
     body('name')
         .trim()

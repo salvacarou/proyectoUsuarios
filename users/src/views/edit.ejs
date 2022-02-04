@@ -4,12 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilos.css">
     <title>edit</title>
 </head>
 <body>
     <h2>edit</h2>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+
+
+<form method="POST" action="/edit?_method=PUT" enctype="multipart/form-data">
+    <label for="fullName">Nombre:</label><br>
+        <input type="text" name="fullName" id="fullName" value="<%= locals.oldData ? oldData.fullName : locals.userInLog.fullName %>">
+        <% if (locals.errors && errors.fullName) { %>
+            <div class="red">
+            <%= errors.fullName.msg %>
+            </div>
+            <% } %>
+        <br>
+        <label for="username">Nombre de usuario:</label><br>
+        <input type="text" name="username" id="username" value="<%= locals.oldData ? oldData.username : locals.userInLog.username %>">  
+        <br>
+        <% if (locals.errors && errors.username) { %>
+            <div class="red">
+        <%= errors.username.msg %>
+        </div>
+        <% } %>
+        <br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : locals.userInLog.email %>">
+        <br>
+        <% if (locals.errors && errors.email) { %>
+        <div class="red">
+        <%= errors.email.msg %>
+        </div>
+        <% } %>
+        <br>
+
+        <label for="birthdate">Fecha de nacimiento:</label><br>
+        <input type="date" name="birthdate" id="birthdate" value="<%= locals.oldData ? oldData.birthdate : locals.userInLog.birthdate %>">
+        <br>
+        <% if (locals.errors && errors.birthdate) { %>
+        <div class="red">
+        <%= errors.birthdate.msg %>
+        </div>
+        <% } %>
+        <br>
+
+        <label for="image">Imagen (Si no elegis una nueva se queda la anterior)</label><br>
+        <input type="file" name="image" id="image">
+        <br>
+        <% if (locals.errors && errors.image) { %>
+        <div class="red">
+        <%= errors.image.msg %>
+        </div> 
+        <% } %>
+        <br>
+
+        <label for="password">Contraseña</label><br>
+        <input type="password" name="password" id="password">
+        <br>
+        <% if (locals.errors && errors.password) { %>
+        <div class="red">
+        <%= errors.password.msg %>
+        </div>
+        <% } %>
+        <br>
+        
+
+        
+        <br><br>
+        <button type="submit">Aceptar</button>
+        <br><br>
+        <button type="reset">borrar</button>
+        <br><br>
+    </form>
+
+
+
+
+    <a href="/">Todos los usuario</a>
+    <a href="/profile">Perfil</a>
     
 </body>
 </html>

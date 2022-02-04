@@ -6,7 +6,7 @@ Acciones:
 
 **1) Lista de usuarios en "/":**
  - Todos los usuarios
- - Se indica el usuario conectado // en proceso
+ - Se indica el usuario conectado 
 
 **2) Registrarse con validaciones, en "/register":** 
  - Nombre completo
@@ -19,10 +19,12 @@ Acciones:
 
 **3) Login con validaciones, en "/login":**
  - Pide email y contraseña
- - Funcion de recordar usuario // en proceso
+ - Funcion de recordar usuario
  - Si estas logueado te redirige a "/profile"
 
 **4) Perfil:**
  - Perfil logueado detallado 
- - Posibilidad de editar // en proceso
  - Si no estas logueado te redirige a "/login"
+
+ **5) Editar**
+ - Poder editar tu usuario 
