@@ -3,7 +3,6 @@ const service = require("../services/userService")
 const imageDefault =  "sin-foto-de-perfil.png";
 const { validationResult } = require("express-validator");
 const bcryptjs = require('bcryptjs');
-const services = require('../services/userService');
 
 module.exports = {
     list: async (req, res) => {
@@ -17,12 +16,12 @@ module.exports = {
         res.render("login")
     },
     processLogin: async (req, res) => {
-        const userSearch = await service.findByEmail(req.body.email)
+        // const userSearch = await service.findByEmail(req.body.email)
         const resultValidation = validationResult(req)
         if (resultValidation.errors.length == 0) {
             const userSearch = await service.findByEmail(req.body.email)
             if (userSearch) {
-                const result = await services.comparePassword(req.body.password, userSearch)
+                const result = await service.comparePassword(req.body.password, userSearch)
                 if (result == true) {
                     req.session.userLogged = userSearch
                     if (req.body.remember_user) {
@@ -40,7 +39,7 @@ module.exports = {
                     })
                 }
             } 
-        } if (resultValidation ) {
+        } if (resultValidation) {
             res.render("login", {
                 errors: resultValidation.mapped(),
                 oldData: req.body
@@ -52,7 +51,6 @@ module.exports = {
     },
     processRegister: async (req, res) => {
         const resultValidation = validationResult(req)
-        console.log(req.file)
 
     if (resultValidation.errors.length == 0) {
             await Users.create({
@@ -77,7 +75,7 @@ module.exports = {
         }     
     },
     profile: async (req, res) => {
-        console.log(req.session.userLogged)
+        // console.log(req.session.userLogged)
         res.render('profile', {
             user: req.session.userLogged
         })
@@ -91,13 +89,15 @@ module.exports = {
         res.render("edit")
     },
     update: async (req, res) => {
+        // console.log(req.body)
         const currentUser = await Users.findOne({where: { email: req.session.userLogged.email }})
-        console.log(currentUser)
         const resultValidation = validationResult(req)
+        console.log(resultValidation)
         if (resultValidation.errors.length == 0) {
             const newU = await Users.update({
                 image : req.file ? req.file.filename : currentUser.image,
                 fullName : req.body.fullName,
+                // fullName : req.body.name + " " + req.body.lastname,
                 username : req.body.username,
                 birthdate : req.body.birthdate,
                 email : req.body.email

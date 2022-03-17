@@ -5,107 +5,111 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>register</title>
 </head>
 <body>
-    <h2>register</h2>
-    <a href="/login">Login</a>
-    <br>
-    <a href="/">All users</a>
-    <br><br>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">User.site</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">¿Que es esto?</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/login">Login</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
 
-    <form method="POST" action="/register" enctype="multipart/form-data">
-         
-        <!-- <label for="fullName">Nombre completo:</label><br>
-        <input type="text" name="fullName" id="fullName" value="<%= locals.oldData ? oldData.fullName : null %>">
-        <br>
-        <% if (locals.errors && errors.fullName) { %>
-        <%= errors.fullName.msg %>
-        <% } %> -->
-
-        <label for="name">Nombre:</label><br>
-        <input type="text" name="name" id="name" value="<%= locals.oldData ? oldData.name : null %>">
-        <br>
-        <% if (locals.errors && errors.name) { %>
+    <main class="pad">
+        <h2>Register</h2><br>
+        <form method="POST" action="/register" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre:</label>
+          <input type="text" name="name" class="form-control" id="name">
+          <% if (locals.errors && errors.name) { %>
             <div class="red">
                 <%= errors.name.msg %>
             </div>
             <% } %>
-        <br>
-
-        <label for="lastname">Apellido:</label><br>
-        <input type="text" name="lastname" id="lastname" value="<%= locals.oldData ? oldData.lastname : null %>">
-        <br>
-        <% if (locals.errors && errors.lastname) { %>
+        </div>
+        <div class="mb-3">
+          <label for="lastname" class="form-label">Apellido:</label>
+          <input type="text" name="lastname" class="form-control" id="lastname">
+          <% if (locals.errors && errors.lastname) { %>
             <div class="red">
-            <%= errors.lastname.msg %>
+                <%= errors.lastname.msg %>
             </div>
             <% } %>
-        <br>
-
-        <label for="username">Nombre de usuario:</label><br>
-        <input type="text" name="username" id="username" value="<%= locals.oldData ? oldData.username : null %>">  
-        <br>
-        <% if (locals.errors && errors.username) { %>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" name="username" class="form-control" id="username">
+          <% if (locals.errors && errors.username) { %>
             <div class="red">
-        <%= errors.username.msg %>
+                <%= errors.username.msg %>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <br>
-
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : null %>">
-        <br>
-        <% if (locals.errors && errors.email) { %>
-        <div class="red">
-        <%= errors.email.msg %>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address:</label>
+          <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+          <% if (locals.errors && errors.email) { %>
+            <div class="red">
+                <%= errors.email.msg %>
+            </div>
+            <% } %>
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
-        <% } %>
-        <br>
-
-        <label for="birthdate">Fecha de nacimiento:</label><br>
-        <input type="date" name="birthdate" id="birthdate" value="<%= locals.oldData ? oldData.birthdate : null %>">
-        <br>
-        <% if (locals.errors && errors.birthdate) { %>
-        <div class="red">
-        <%= errors.birthdate.msg %>
+        <div class="mb-3">
+          <label for="birthdate" class="form-label">Fecha de nacimiento:</label>
+          <input type="date" name="birthdate" class="form-control" id="birthdate">
+          <% if (locals.errors && errors.email) { %>
+            <div class="red">
+                <%= errors.email.msg %>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <br>
-
-        <label for="image">Imagen</label><br>
-        <input type="file" name="image" id="image">
-        <br>
-        <% if (locals.errors && errors.image) { %>
-        <div class="red">
-        <%= errors.image.msg %>
-        </div> 
-        <% } %>
-        <br>
-
-        <label for="password">Contraseña</label><br>
-        <input type="password" name="password" id="password">
-        <br>
-        <% if (locals.errors && errors.password) { %>
-        <div class="red">
-        <%= errors.password.msg %>
+        <div class="mb-3">
+          <label for="image" class="form-label">Imagen de Perfil</label>
+          <input type="file" name="image" class="form-control" id="image">
+          <% if (locals.errors && errors.image) { %>
+            <div class="red">
+            <%= errors.image.msg %>
+            </div> 
+            <% } %>
         </div>
-        <% } %>
-        <br>
-
-        <label for="confirmPassword">Confirmar contraseña</label><br>
-        <input type="password" name="confirmPassword" id="confirmPassword">
-        <br>
-        <% if (locals.errors && errors.confirmPassword) { %>
-        <div class="red">
-        <%= errors.confirmPassword.msg %>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input type="password" name="password" class="form-control" id="password">
+          <% if (locals.errors && errors.password) { %>
+            <div class="red">
+                <%= errors.password.msg %>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <br>
-        
-        <button type="submit">Aceptar</button>
-        <br><br>
-        <button type="reset">borrar</button>
-    </form>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar contraseña:</label>
+          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+          <% if (locals.errors && errors.confirmPassword) { %>
+            <div class="red">
+                <%= errors.confirmPassword.msg %>
+            </div>
+            <% } %>
+        </div>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+      </form>
+    </main>
+
 </body>
 </html>

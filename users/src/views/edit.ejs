@@ -5,85 +5,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>edit</title>
 </head>
 <body>
-    <h2>edit</h2>
 
-
-<form method="POST" action="/edit?_method=PUT" enctype="multipart/form-data">
-    <label for="fullName">Nombre:</label><br>
-        <input type="text" name="fullName" id="fullName" value="<%= locals.oldData ? oldData.fullName : locals.userInLog.fullName %>">
-        <% if (locals.errors && errors.fullName) { %>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">User.site</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">¿Que es esto?</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/register">Register</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <main class="pad">
+        <h2>Edit</h2><br>
+        <form method="POST" action="/edit?_method=PUT" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Nombre y apellido:</label>
+          <input type="text" name="fullName" class="form-control" id="fullName" value="<%= locals.oldData ? oldData.fullName : locals.userInLog.fullName %>">
+          <% if (locals.errors && errors.fullName) { %>
             <div class="red">
-            <%= errors.fullName.msg %>
+                <%= errors.fullName.msg %>
             </div>
             <% } %>
-        <br>
-        <label for="username">Nombre de usuario:</label><br>
-        <input type="text" name="username" id="username" value="<%= locals.oldData ? oldData.username : locals.userInLog.username %>">  
-        <br>
-        <% if (locals.errors && errors.username) { %>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" name="username" class="form-control" id="username" value="<%= locals.oldData ? oldData.username : locals.userInLog.username %>">
+          <% if (locals.errors && errors.username) { %>
             <div class="red">
-        <%= errors.username.msg %>
+                <%= errors.username.msg %>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <br>
-
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" id="email" value="<%= locals.oldData ? oldData.email : locals.userInLog.email %>">
-        <br>
-        <% if (locals.errors && errors.email) { %>
-        <div class="red">
-        <%= errors.email.msg %>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address:</label>
+          <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" value="<%= locals.oldData ? oldData.email : locals.userInLog.email %>">
+          <% if (locals.errors && errors.email) { %>
+            <div class="red">
+                <%= errors.email.msg %>
+            </div>
+            <% } %>
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
-        <% } %>
-        <br>
-
-        <label for="birthdate">Fecha de nacimiento:</label><br>
-        <input type="date" name="birthdate" id="birthdate" value="<%= locals.oldData ? oldData.birthdate : locals.userInLog.birthdate %>">
-        <br>
-        <% if (locals.errors && errors.birthdate) { %>
-        <div class="red">
-        <%= errors.birthdate.msg %>
+        <div class="mb-3">
+          <label for="birthdate" class="form-label">Fecha de nacimiento:</label>
+          <input type="date" name="birthdate" class="form-control" id="birthdate" value="<%= locals.oldData ? oldData.birthdate : locals.userInLog.birthdate %>">
+          <% if (locals.errors && errors.email) { %>
+            <div class="red">
+                <%= errors.email.msg %>
+            </div>
+            <% } %>
         </div>
-        <% } %>
-        <br>
-
-        <label for="image">Imagen (Si no elegis una nueva se queda la anterior)</label><br>
-        <input type="file" name="image" id="image">
-        <br>
-        <% if (locals.errors && errors.image) { %>
-        <div class="red">
-        <%= errors.image.msg %>
-        </div> 
-        <% } %>
-        <br>
-
-        <label for="password">Contraseña</label><br>
-        <input type="password" name="password" id="password">
-        <br>
-        <% if (locals.errors && errors.password) { %>
-        <div class="red">
-        <%= errors.password.msg %>
+        <div class="mb-3">
+          <label for="image" class="form-label">Imagen de Perfil</label>
+          <input type="file" name="image" class="form-control" id="image">
+          <% if (locals.errors && errors.image) { %>
+            <div class="red">
+            <%= errors.image.msg %>
+            </div> 
+            <% } %>
         </div>
-        <% } %>
-        <br>
-        
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input type="password" name="password" class="form-control" id="password" >
+          <% if (locals.errors && errors.password) { %>
+            <div class="red">
+                <%= errors.password.msg %>
+            </div>
+            <% } %>
+        </div>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+      </form>
+    </main>
 
-        
-        <br><br>
-        <button type="submit">Aceptar</button>
-        <br><br>
-        <button type="reset">borrar</button>
-        <br><br>
-    </form>
 
-
-
-
-    <a href="/">Todos los usuario</a>
-    <a href="/profile">Perfil</a>
     
 </body>
 </html>

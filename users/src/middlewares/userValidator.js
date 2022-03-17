@@ -2,14 +2,6 @@ const { body } = require('express-validator');
 const db = require('../database/models');
 
 const validations = [
-    // body('fullName')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('Debe ingresar su nombre completo') 
-    //     .bail()
-    //     .isLength({min:4, max:20})
-    //     .withMessage("Debe tener de 4 a 20 caracteres")
-    //     .bail(),
     body('name')
         .trim()
         .notEmpty()
@@ -23,7 +15,7 @@ const validations = [
     body('lastname')
         .trim()
         .notEmpty()
-        .withMessage('Debe ingresar su nombre') 
+        .withMessage('Debe ingresar su apellido') 
         .bail()
         .isLength({min:4, max:20})
         .withMessage("Debe tener de 4 a 20 caracteres")

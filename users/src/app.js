@@ -14,7 +14,7 @@ app.use(session({
 }));
 
 app.use(cookies())
-app.use(userLoggedMid);
+app.use(userLoggedMid)
 app.use(methodOverride("_method")); // Para capturar la info de los forms
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
